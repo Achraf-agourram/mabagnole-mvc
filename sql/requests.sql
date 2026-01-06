@@ -48,3 +48,48 @@ CREATE TABLE review (
     FOREIGN KEY (idVehicle) REFERENCES vehicles(vehicleId),
     FOREIGN KEY (idUser) REFERENCES users(userId)
 );
+
+CREATE TABLE themes (
+    themeId INT AUTO_INCREMENT PRIMARY KEY,
+    themeTitle VARCHAR(100),
+    themeImage TEXT
+);
+
+CREATE TABLE articles (
+    articleId INT AUTO_INCREMENT PRIMARY KEY,
+    articleTitle VARCHAR(100),
+    articleParagraph TEXT,
+    approuve INT,
+    idTheme INT,
+    idClient INT,
+    FOREIGN KEY (idTheme) REFERENCES themes(themeId),
+    FOREIGN KEY (idClient) REFERENCES users(userId)
+);
+
+CREATE TABLE commentArticles (
+    commentId INT AUTO_INCREMENT PRIMARY KEY,
+    commentText TEXT,
+    idArticle INT,
+    idClient INT,
+    FOREIGN KEY (idArticle) REFERENCES articles(articleId),
+    FOREIGN KEY (idClient) REFERENCES users(userId)
+);
+
+CREATE TABLE tags (
+    tagId INT AUTO_INCREMENT PRIMARY KEY,
+    tagTitle VARCHAR(100)
+);
+
+CREATE TABLE article_tag (
+    article_id INT NOT NULL,
+    tag_id INT NOT NULL,
+    PRIMARY KEY (article_id, tag_id),
+    
+    FOREIGN KEY (article_id) REFERENCES articles(articleId)
+    	ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    FOREIGN KEY (tag_id) REFERENCES tags(tagId)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
