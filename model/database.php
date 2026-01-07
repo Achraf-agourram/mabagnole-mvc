@@ -29,6 +29,12 @@ class Database
 
         return $pre->fetchAll();
     }
+
+    public static function getLastArticle(): int
+    {
+        $db = self::connect();
+        return $db->lastInsertId();
+    }
 }
 
 ?>

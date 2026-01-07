@@ -28,7 +28,18 @@ class Tag
 
     public static function getTags(): array
     {
-        Database::request("SELECT * FROM tags;", []); //fix
+        return Database::request("SELECT * FROM tags;", []); //fix
+    }
+
+    public static function existTag(string $tag): bool
+    {
+        if(Database::request("SELECT * FROM tags WHERE tagTitle= ?;", [$tag])) return true;
+        return false;
+    }
+
+    public static function getTagId(string $tag): int
+    {
+        return Database::request("SELECT tagId FROM tags WHERE tagTitle= ?;", [$tag])[0]->tagId;
     }
 
     public function __get($property)

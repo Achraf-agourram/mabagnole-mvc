@@ -58,6 +58,7 @@ CREATE TABLE themes (
 CREATE TABLE articles (
     articleId INT AUTO_INCREMENT PRIMARY KEY,
     articleTitle VARCHAR(100),
+    articleImage VARCHAR(100),
     articleParagraph TEXT,
     approuve INT,
     idTheme INT,
