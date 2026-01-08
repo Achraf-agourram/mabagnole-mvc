@@ -7,16 +7,18 @@ class Article
     private $articleImage;
     private $articleParagraph;
     private $approuve;
+    private ?array $tags = null;
     private $idTheme;
     private $idClient;
 
-    public function __construct(int $id, string $title, string $image, string $paragraph, int $approuve, int $idTheme, int $idClient)
+    public function __construct(int $id, string $title, string $image, array $tags, string $paragraph, int $approuve, int $idTheme, int $idClient)
     {
-        $this->themeId = $id;
-        $this->themeTitle = $title;
+        $this->articleId = $id;
+        $this->articleTitle = $title;
         $this->articleImage = $image;
-        $this->themeImage = $paragraph;
+        $this->articleParagraph = $paragraph;
         $this->approuve = $approuve;
+        $this->tags = $tags;
         $this->idTheme = $idTheme;
         $this->idClient = $idClient;
     }
@@ -53,20 +55,38 @@ class Article
     {
         try{
             Database::request("DELETE FROM articles WHERE articleId= ?;", [$this->articleId]);
+            return true;
+
         }catch (Exception $e) {return false;}
     }
 
-    public static function getArticlesOnTheme(int $idTheme): array
+    public static function getAllArticles(): bool|array
     {
-        try{return 
-            Database::request("SELECT * FROM articles WHERE idTheme= ?;", [$idTheme]);
+        try{
+            $allArticles = [];
+            $articles = Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId;", []);
+
+            foreach($articles as $article)
+            {
+                $articleTags = Tag::getTagsByArticle($article->articleId);
+                array_push($allArticles, new Article($article->articleId, $article->articleTitle, $article->articleImage, $articleTags, $article->articleParagraph, $article->approuve, $article->idTheme, $article->idClient));
+            }
+            return $allArticles;
+
         }catch (Exception $e) {return false;}
     }
 
-    public static function getArticlesOnTag(array $idTags): array
+    public static function getArticlesOnTheme(int $idTheme): bool|array
     {
-        try{return 
-            Database::request("SELECT * FROM articles;", []); /// Fix
+        try{ 
+            return Database::request("SELECT * FROM articles WHERE idTheme= ?;", [$idTheme]);
+        }catch (Exception $e) {return false;}
+    }
+
+    public static function getArticlesOnTag(array $idTags): bool|array
+    {
+        try{
+            return Database::request("SELECT * FROM articles;", []); /// Fix
         }catch (Exception $e) {return false;}
     }
     

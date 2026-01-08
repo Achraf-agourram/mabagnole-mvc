@@ -31,6 +31,11 @@ class Tag
         return Database::request("SELECT * FROM tags;", []); //fix
     }
 
+    public static function getTagsByArticle($articleId): array
+    {
+        return Database::request("SELECT tags.* FROM article_tag JOIN tags ON tag_id=tags.tagId WHERE article_id=?;", [$articleId]);
+    }
+
     public static function existTag(string $tag): bool
     {
         if(Database::request("SELECT * FROM tags WHERE tagTitle= ?;", [$tag])) return true;

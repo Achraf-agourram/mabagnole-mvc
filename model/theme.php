@@ -31,6 +31,11 @@ class Theme
         return Database::request("SELECT * FROM themes;", []);
     }
 
+    public static function getThemeById($id): object
+    {
+        return Database::request("SELECT * FROM themes WHERE themeId= ?;", [$id])[0];
+    }
+
     public function __get($property)
     {
         return $this->$property;

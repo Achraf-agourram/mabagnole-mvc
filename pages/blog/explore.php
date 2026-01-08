@@ -52,23 +52,34 @@ if(isset($_POST['addArticle'])) {
       <button class="px-4 py-2 border border-[#197fe6] text-[#197fe6] rounded-full hover:bg-blue-50">Lifestyle</button>
       <button class="px-4 py-2 border border-[#197fe6] text-[#197fe6] rounded-full hover:bg-blue-50">Cooking</button>
     </div>
+    
+    <div class='grid md:grid-cols-3 gap-8'>
+      <?php
+        foreach(Article::getAllArticles() as $article) {
+          echo "
+            <div class='bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition'>
+              <div class='h-48 bg-gray-200 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest'><img src='images/{$article->articleImage}'></div> 
+              <div class='p-5'>
+                <div class='flex justify-between items-start mb-2'>
+                  <span class='text-xs font-bold text-[#197fe6] uppercase tracking-wide'>" .Theme::getThemeById($article->idTheme)->themeTitle. "</span>
+                  <!--button class='text-gray-300 hover:text-red-500 transition text-xl'>❤️</button-->
+                </div>
+                <h3 class='text-xl font-bold mb-2'>{$article->articleTitle}</h3>
+                <p class='text-gray-600 text-sm mb-4'>" .substr($article->articleParagraph, 0, 50). '...' . "</p>
+                <div class='flex gap-2'>
+          ";
 
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition">
-        <div class="h-48 bg-gray-200 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest">Article Preview</div> 
-        <div class="p-5">
-          <div class="flex justify-between items-start mb-2">
-            <span class="text-xs font-bold text-[#197fe6] uppercase tracking-wide">Technology</span>
-            <button class="text-gray-300 hover:text-red-500 transition text-xl">❤️</button>
-          </div>
-          <h3 class="text-xl font-bold mb-2">How AI is changing the world</h3>
-          <p class="text-gray-600 text-sm mb-4">A short summary of the article to entice the reader to learn more...</p>
-          <div class="flex gap-2">
-            <span class="text-[10px] bg-blue-50 text-[#197fe6] px-2 py-1 rounded font-bold border border-blue-100">#AI</span>
-            <span class="text-[10px] bg-blue-50 text-[#197fe6] px-2 py-1 rounded font-bold border border-blue-100">#Future</span>
-          </div>
-        </div>
-      </div>
+          foreach($article->tags as $tag) echo "
+                  <span class='text-[10px] bg-blue-50 text-[#197fe6] px-2 py-1 rounded font-bold border border-blue-100'>#{$tag->tagTitle}</span>
+            ";
+          echo "
+                </div>
+              </div>
+            </div>
+          ";
+        }
+          ?>
+                
     </div>
 
     <div class="flex flex-col md:flex-row justify-between items-center mt-12 gap-6 border-t pt-8">
