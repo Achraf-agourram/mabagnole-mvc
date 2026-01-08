@@ -86,6 +86,15 @@ class Article
             return Database::request("SELECT * FROM articles;", []); /// Fix
         }catch (Exception $e) {return false;}
     }
+
+    public static function searchArticle(string $title): bool|array
+    {
+        /*try{*/
+            $articles = Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId WHERE articleTitle LIKE ?%;", [$title]);
+            return Tag::linkTagsWithArticles($articles);
+
+        /*}catch (Exception $e) {return false;}*/
+    }
     
     public function __get($property)
     {
