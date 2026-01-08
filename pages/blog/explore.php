@@ -16,7 +16,7 @@ if(isset($_POST['addArticle'])) {
 
 
 if(isset($_GET['getArticlesOnTopic'])) $articles = Article::getArticlesOnTheme($_GET['getArticlesOnTopic']);
-else if(isset($_GET['search'])) $articles = Article::searchArticle($_GET['titleToSearch']);
+else if(isset($_GET['search'])) $articles = Article::searchArticle("%{$_GET['titleToSearch']}%");
 else $articles = Article::getAllArticles();
 ?>
 
@@ -61,8 +61,7 @@ else $articles = Article::getAllArticles();
     
     <form class="grid md:grid-cols-3 gap-8" method="GET">
       <?php
-        var_dump($articles);
-        /*foreach($articles as $article) {
+        foreach($articles as $article) {
           echo "
             <div class='bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition'>
               <div class='h-48 bg-gray-200 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest'><img src='images/{$article->articleImage}'></div> 
@@ -85,7 +84,7 @@ else $articles = Article::getAllArticles();
               </div>
             </div>
           ";
-        }*/
+        }
           ?>
                 
       </form>
