@@ -47,10 +47,10 @@
                   <button name='showArticle' value='{$article->articleId}' class='px-4 py-2 bg-[#197fe6] text-white rounded-full'>learn more</button>
                 ";
 
-          if($article->idClient == $connectedUser->id) echo "
+          if($article->idClient === $connectedUser->id) echo "
             <div class='flex'>
-              <button class='text-[#197fe6] p-4'>Edit</button>
-              <button class='text-red-500 pl-3'>delete</button>
+              <button name='edit' value='{$article->articleId}' class='text-[#197fe6] pl-4'>Edit</button>
+              <button name='deleteArticle' value='{$article->articleId}' class='text-red-500 pl-3'>delete</button>
             </div>
           ";
 

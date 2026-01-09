@@ -39,10 +39,18 @@ class Article
         }catch (Exception $e) {return false;}
     }
 
-    public function editArticle(string $title, string $image, string $paragraph): bool
+    public function editArticle(string $title, ?array $tags, string $image, string $paragraph): bool
     {
         try{
+            if($image) move_uploaded_file($_FILES['image']['tmp_name'], "images/" . $image);
+            else $image = "unavailable.png";
+            
+            Database::request("DELETE FROM `article_tag` WHERE article_id= ?;", [$this->articleId]);
+            if($tags) foreach($tags as $tag) Database::request("INSERT INTO article_tag (article_id, tag_id) VALUES (?, ?)", [$this->articleId, Tag::getTagId($tag)]);
+
             Database::request("UPDATE articles SET articleTitle= ?, articleImage= ?, articleParagraph= ? WHERE articleId= ?;", [$title, $image, $paragraph, $this->articleId]);
+            return true;
+
         }catch (Exception $e) {return false;}
     }
 

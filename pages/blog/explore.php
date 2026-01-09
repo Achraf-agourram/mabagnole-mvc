@@ -16,7 +16,6 @@ if(isset($_POST['addArticle'])) {
   else echo "Adding article failed, please try again";
 }
 
-
 ?>
 
 
@@ -39,8 +38,9 @@ if(isset($_POST['addArticle'])) {
     </div>
   </nav>
 
-  <?php 
+  <?php
     if(isset($_GET['showArticle'])) return require_once "sections/viewArticleSection.php";
+    if(isset($_GET['edit'])) return require_once "sections/editingArticleSection.php";
     
     require_once "sections/allArticlesSection.php";
   ?>
