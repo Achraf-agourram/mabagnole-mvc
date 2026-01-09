@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../autoload.php';
 
-if(!isset($_SESSION['loggedAccount'])) exit;
+if(!isset($_SESSION['loggedAccount'])) {header("location: ../login.php");exit;}
 
 $connectedUser = User::findById($_SESSION['loggedAccount']);
 
@@ -40,6 +40,7 @@ if(isset($_POST['addArticle'])) {
 
   <?php
     if(isset($_GET['showArticle'])) return require_once "sections/viewArticleSection.php";
+    if(isset($_POST['addComment'])) return require_once "sections/viewArticleSection.php";
 
     if(isset($_GET['edit'])) {
       $articleToEdit = Article::getArticleById($_GET['edit']);

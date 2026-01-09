@@ -1,6 +1,6 @@
 <?php
 
-class commentArticle
+class Comment
 {
     private $commentId;
     private $commentText;
@@ -15,24 +15,62 @@ class commentArticle
         $this->idClient = $idClient;
     }
 
-    public static function addComment($commentText, $idArticle, $idClient): void
+    public static function addComment($commentText, $idArticle, $idClient): bool
     {
-        Database::request("INSERT INTO commentArticles (commentText, idArticle, idClient) VALUES (?, ?, ?)", [$commentText, $idArticle, $idClient]);
+        try{
+            Database::request("INSERT INTO commentArticles (commentText, idArticle, idClient) VALUES (?, ?, ?)", [$commentText, $idArticle, $idClient]);
+            return true;
+        }
+        catch(Exception $e) {return false;}
     }
     
-    public function editComment($commentText): void
+    public function editComment($commentText): bool
     {
-        Database::request("UPDATE SET commentText= ? FROM commentArticles WHERE commentId= ?;", [$commentText, $this->tagId]);
+        global $connectedUser;
+        try{
+            if($connectedUser->id === $this->idClient)
+            {
+                Database::request("UPDATE commentArticles SET commentText= ?  WHERE commentId= ?;", [$commentText, $this->commentId]);
+                return true;
+            }
+            return false;
+
+        }catch(Exception $e){return false;}
     }
 
-    public function removeComments(): void
+    public function removeComment(): bool
     {
-        Database::request("DELETE FROM commentArticles WHERE commentId= ?;", [$this->tagId]);
+        global $connectedUser;
+        try{
+            if($connectedUser->id === $this->idClient)
+            {
+                Database::request("DELETE FROM commentArticles WHERE commentId= ?;", [$this->commentId]);
+                return true;
+            }
+            return false;
+
+        }catch(Exception $e){return false;}
+    }
+
+    public static function findComment($id): ?Comment
+    {
+        $foundComment = Database::request("SELECT * FROM commentArticles WHERE commentId= ?;", [$id]);
+        if(!$foundComment) return null;
+
+        $foundComment = $foundComment[0];
+        return new Comment($foundComment->commentId, $foundComment->commentText, $foundComment->idArticle, $foundComment->idClient);
     }
 
     public static function getComments($idArticle): array
     {
-        Database::request("SELECT * FROM commentArticles WHERE idArticle= ?;", [$idArticle]);
+        $allComments = [];
+        foreach(Database::request("SELECT * FROM commentArticles WHERE idArticle= ?;", [$idArticle]) as $comment) array_push($allComments, new Comment($comment->commentId, $comment->commentText, $comment->idArticle, $comment->idClient));
+        return $allComments;
+    }
+
+    public static function getCommentsTotalOfArticle($idArticle): int
+    {
+        return Database::request("SELECT COUNT(*) AS total FROM `commentarticles` WHERE idArticle= ?;", [$idArticle])[0]->total;
     }
 
     public function __get($property)
