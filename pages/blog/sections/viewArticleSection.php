@@ -5,7 +5,7 @@
             <article class='bg-white p-8 rounded-2xl shadow-sm border border-gray-100'>
                 <header class='mb-8'>
                     <div class='flex items-center gap-2 mb-4'>
-                    <a href='#' class='text-[#197fe6] font-bold'>← Back to Feed</a>
+                    <a href='../blog/explore.php' class='text-[#197fe6] font-bold'>← Back to Feed</a>
                     </div>
                     <h1 class='text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>{$article->articleTitle}</h1>
                     <div class='flex items-center gap-4 text-gray-500 text-sm'>

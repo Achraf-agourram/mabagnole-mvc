@@ -19,6 +19,11 @@
     
     <form class="grid md:grid-cols-3 gap-8" method="GET">
       <?php
+        if(isset($_GET['getArticlesOnTopic'])) $articles = Article::getArticlesOnTheme($_GET['getArticlesOnTopic']);
+        else if(isset($_GET['search'])) $articles = Article::searchArticle("%{$_GET['titleToSearch']}%");
+        else if(isset($_GET['showArticlesByTag'])) $articles = Article::getArticlesOnTag($_GET['showArticlesByTag']);
+        else $articles = Article::getAllArticles();
+
         foreach($articles as $article) {
           echo "
             <div class='bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition'>
@@ -34,7 +39,7 @@
           ";
 
           foreach($article->tags as $tag) echo "
-                  <span class='text-[10px] bg-blue-50 text-[#197fe6] px-2 py-1 rounded font-bold border border-blue-100'>#{$tag->tagTitle}</span>
+                  <button name='showArticlesByTag' value='$tag->tagId' class='text-[10px] bg-blue-50 text-[#197fe6] px-2 py-1 rounded font-bold border border-blue-100'>#{$tag->tagTitle}</button>
             ";
           echo "
                 </div>

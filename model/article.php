@@ -89,10 +89,15 @@ class Article
         }catch (Exception $e) {return false;}
     }
 
-    public static function getArticlesOnTag(array $idTags): bool|array
+    public static function getArticlesOnTag(int $idTag): bool|array
     {
         try{
-            return Database::request("SELECT * FROM articles;", []); /// Fix
+            $articles = [];
+            $ids = Database::request("SELECT article_id FROM `article_tag` WHERE tag_id= ?;", [$idTag]);
+            foreach($ids as $id) array_push($articles, Article::getArticleById($id->article_id));
+
+            return $articles;
+
         }catch (Exception $e) {return false;}
     }
 

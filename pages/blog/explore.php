@@ -12,14 +12,11 @@ if(isset($_POST['addArticle'])) {
   }
   else $tags = null;
 
-  if(Article::addArticle($_POST['title'], $_FILES['image']['name'], $tags, $_POST['paragraph'], $_POST['theme'], $connectedUser->id)) echo "Article added successfully";
+  if(Article::addArticle($_POST['title'], $_FILES['image']['name'], $tags, $_POST['paragraph'], $_POST['theme'], $connectedUser->id)) echo "Article added successfully, wait until our support approuve it";
   else echo "Adding article failed, please try again";
 }
 
 
-if(isset($_GET['getArticlesOnTopic'])) $articles = Article::getArticlesOnTheme($_GET['getArticlesOnTopic']);
-else if(isset($_GET['search'])) $articles = Article::searchArticle("%{$_GET['titleToSearch']}%");
-else $articles = Article::getAllArticles();
 ?>
 
 
