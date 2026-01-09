@@ -3,6 +3,8 @@ require_once __DIR__ . '/../../autoload.php';
 
 if(!isset($_SESSION['loggedAccount'])) exit;
 
+$connectedUser = User::findById($_SESSION['loggedAccount']);
+
 if(isset($_POST['addArticle'])) {
   if($_POST['tags']) {
     $tags = explode(" ", str_replace("#", "", $_POST['tags']));
@@ -10,7 +12,7 @@ if(isset($_POST['addArticle'])) {
   }
   else $tags = null;
 
-  if(Article::addArticle($_POST['title'], $_FILES['image']['name'], $tags, $_POST['paragraph'], $_POST['theme'], $_SESSION['loggedAccount'])) echo "Article added successfully";
+  if(Article::addArticle($_POST['title'], $_FILES['image']['name'], $tags, $_POST['paragraph'], $_POST['theme'], $connectedUser->id)) echo "Article added successfully";
   else echo "Adding article failed, please try again";
 }
 
@@ -40,7 +42,11 @@ else $articles = Article::getAllArticles();
     </div>
   </nav>
 
-  <?php require_once "sections/allArticlesSection.php"; ?>
+  <?php 
+    if(isset($_GET['showArticle'])) return require_once "sections/viewArticleSection.php";
+    
+    require_once "sections/allArticlesSection.php";
+  ?>
 
 
   

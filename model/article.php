@@ -62,6 +62,15 @@ class Article
         }catch (Exception $e) {return false;}
     }
 
+    public static function getArticleById($id): bool|object
+    {
+        try{
+            $article = Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId WHERE approuve= 1 AND articleId = ?;", [$id]);
+            return Tag::linkTagsWithArticles($article)[0];
+
+        }catch (Exception $e) {return false;}
+    }
+
     public static function getAllArticles(): bool|array
     {
         try{
@@ -74,7 +83,7 @@ class Article
     public static function getArticlesOnTheme(int $idTheme): bool|array
     {
         try{
-            $articles = Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId WHERE idTheme= ?;", [$idTheme]);
+            $articles = Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId WHERE approuve= 1 AND idTheme= ?;", [$idTheme]);
             return Tag::linkTagsWithArticles($articles);
 
         }catch (Exception $e) {return false;}
@@ -90,7 +99,7 @@ class Article
     public static function searchArticle(string $title): bool|array
     {
         try{
-            $articles = Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId WHERE articleTitle LIKE ?;", [$title]);
+            $articles = Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId WHERE approuve= 1 AND articleTitle LIKE ?;", [$title]);
             return Tag::linkTagsWithArticles($articles);
 
         }catch (Exception $e) {return false;}
