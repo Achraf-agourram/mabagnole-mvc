@@ -112,10 +112,10 @@ if(isset($_POST['addCategory'])){
                     <span class="text-sm font-medium">Categories</span>
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
-                    href="#">
+                    href="articles.php">
                     <span
-                        class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">directions_car</span>
-                    <span class="text-sm font-medium">All Vehicles</span>
+                        class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">article</span>
+                    <span class="text-sm font-medium">Articles</span>
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
                     href="#">
@@ -159,40 +159,6 @@ if(isset($_POST['addCategory'])){
                             <span class="material-symbols-outlined text-[20px]">add</span>
                             <span>New Category</span>
                         </button>
-                    </div>
-                </div>
-                <!-- Stats Overview -->
-                <div class="px-6 pb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div
-                        class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 shadow-sm">
-                        <div class="flex items-center justify-between">
-                            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Categories</p>
-                            <span class="material-symbols-outlined text-slate-400">category</span>
-                        </div>
-                        <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">12</p>
-                    </div>
-                    <div
-                        class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 shadow-sm">
-                        <div class="flex items-center justify-between">
-                            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Vehicles</p>
-                            <span class="material-symbols-outlined text-slate-400">directions_car</span>
-                        </div>
-                        <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">148</p>
-                    </div>
-                    <div
-                        class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 shadow-sm">
-                        <div class="flex items-center justify-between">
-                            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Active Rentals</p>
-                            <span class="material-symbols-outlined text-slate-400">key</span>
-                        </div>
-                        <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">86</p>
-                    </div>
-                    <div class="p-4 rounded-xl border-l-4 border-amber-400 bg-amber-50 dark:bg-amber-900/10 shadow-sm">
-                        <div class="flex items-center justify-between">
-                            <p class="text-sm font-medium text-amber-800 dark:text-amber-200">Empty Categories</p>
-                            <span class="material-symbols-outlined text-amber-500">warning</span>
-                        </div>
-                        <p class="text-2xl font-bold text-amber-900 dark:text-amber-100 mt-1">2</p>
                     </div>
                 </div>
             </div>
