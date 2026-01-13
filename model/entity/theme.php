@@ -11,6 +11,18 @@ class Theme
         $this->themeTitle = $title;
     }
 
+    public function __get($property)
+    {
+        return $this->$property;
+    }
+    public function __set($property, $value)
+    {
+        $this->$property = $value;
+    }
+
+}
+
+/*
     public static function addTheme(string $title): void
     {
         Database::request("INSERT INTO themes (themeTitle) VALUES (?);", [$title]);
@@ -35,16 +47,6 @@ class Theme
     {
         return Database::request("SELECT * FROM themes WHERE themeId= ?;", [$id])[0];
     }
-
-    public function __get($property)
-    {
-        return $this->$property;
-    }
-    public function __set($property, $value)
-    {
-        $this->$property = $value;
-    }
-
-}
+*/
 
 ?>
