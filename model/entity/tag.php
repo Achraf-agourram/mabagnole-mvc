@@ -11,6 +11,18 @@ class Tag
         $this->tagTitle = $text;
     }
 
+    public function __get($property)
+    {
+        return $this->$property;
+    }
+    public function __set($property, $value)
+    {
+        $this->$property = $value;
+    }
+
+}
+
+/*
     public static function addTag($tagTitle): void
     {
         Database::request("INSERT INTO tags (tagTitle) VALUES (?)", [$tagTitle]);
@@ -53,21 +65,11 @@ class Tag
 
         foreach($articles as $article)
         {
-            $articleTags = Tag::getTagsByArticle($article->articleId);
+            $articleTags = Self::getTagsByArticle($article->articleId);
             array_push($result, new Article($article->articleId, $article->articleTitle, $article->articleImage, $articleTags, $article->articleParagraph, $article->approuve, $article->idTheme, $article->idClient));
         }
         return $result;
     }
-
-    public function __get($property)
-    {
-        return $this->$property;
-    }
-    public function __set($property, $value)
-    {
-        $this->$property = $value;
-    }
-
-}
+*/
 
 ?>
