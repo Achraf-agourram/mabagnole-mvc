@@ -23,7 +23,21 @@ class Article
         $this->idClient = $idClient;
     }
 
-    public static function addArticle(string $title, string $image, ?array $tags, string $paragraph, int $idTheme, int $idClient): bool
+    
+    public function __get($property)
+    {
+        return $this->$property;
+    }
+    public function __set($property, $value)
+    {
+        $this->$property = $value;
+    }
+
+}
+
+
+/*
+public static function addArticle(string $title, string $image, ?array $tags, string $paragraph, int $idTheme, int $idClient): bool
     {
         try{
             if($image) move_uploaded_file($_FILES['image']['tmp_name'], "images/" . $image);
@@ -126,16 +140,6 @@ class Article
 
         }catch (Exception $e) {return false;}
     }
-    
-    public function __get($property)
-    {
-        return $this->$property;
-    }
-    public function __set($property, $value)
-    {
-        $this->$property = $value;
-    }
-
-}
+*/
 
 ?>
