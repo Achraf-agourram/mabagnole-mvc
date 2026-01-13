@@ -7,7 +7,24 @@ class User
     protected $email;
     protected $role;
     protected $password;
-    
+
+    public function logout(): void
+    {
+        session_destroy();
+    }
+
+    public function __get($property)
+    {
+        return $this->$property;
+    }
+    public function __set($property, $value)
+    {
+        $this->$property = $value;
+    }
+
+}
+
+/*
     public static function login (string $email, string $password): ?User
     {
         $foundUser = Database::request("SELECT * FROM users WHERE email = ?", [$email]);
@@ -36,21 +53,6 @@ class User
         }
         return null;
     }
-
-    public function logout(): void
-    {
-        session_destroy();
-    }
-
-    public function __get($property)
-    {
-        return $this->$property;
-    }
-    public function __set($property, $value)
-    {
-        $this->$property = $value;
-    }
-
-}
+*/
 
 ?>
