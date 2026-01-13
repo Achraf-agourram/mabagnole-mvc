@@ -12,7 +12,7 @@ class ThemeRepository
         Database::request("UPDATE SET themeTitle= ? FROM themes WHERE themeId= ?;", [$title, $id]);
     }
 
-    public function remove($id): void
+    public function remove(int $id): void
     {
         Database::request("DELETE FROM themes WHERE themeId= ?;", [$id]);
     }
@@ -22,7 +22,7 @@ class ThemeRepository
         return Database::request("SELECT * FROM themes;", []);
     }
 
-    public function findById($id): array
+    public function findById(int $id): array
     {
         return Database::request("SELECT * FROM themes WHERE themeId= ?;", [$id]);
     }

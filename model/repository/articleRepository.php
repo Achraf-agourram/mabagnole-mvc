@@ -27,7 +27,7 @@ class ArticleRepository
         return Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId WHERE approuve= 1 AND articleId = ?;", [$id]);
     }
 
-    public function getAll(): array
+    public function get(): array
     {
         return Database::request("SELECT articles.*, themes.themeTitle FROM articles JOIN themes ON idTheme=themes.themeId WHERE approuve= 1;", []);
     }

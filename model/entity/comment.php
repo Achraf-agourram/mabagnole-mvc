@@ -15,6 +15,19 @@ class Comment
         $this->idClient = $idClient;
     }
 
+
+    public function __get($property)
+    {
+        return $this->$property;
+    }
+    public function __set($property, $value)
+    {
+        $this->$property = $value;
+    }
+
+}
+
+/*
     public static function addComment($commentText, $idArticle, $idClient): bool
     {
         try{
@@ -72,16 +85,6 @@ class Comment
     {
         return Database::request("SELECT COUNT(*) AS total FROM `commentarticles` WHERE idArticle= ?;", [$idArticle])[0]->total;
     }
-
-    public function __get($property)
-    {
-        return $this->$property;
-    }
-    public function __set($property, $value)
-    {
-        $this->$property = $value;
-    }
-
-}
+*/
 
 ?>
