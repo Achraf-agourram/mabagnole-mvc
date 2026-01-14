@@ -10,7 +10,7 @@ interface ThemeServiceInterface
 
     public function getThemes(): array;
 
-    public static function getThemeById($id): Theme;
+    public function getThemeById($id): Theme;
 }
 
 ?>
