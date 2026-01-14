@@ -29,7 +29,7 @@ class TagRepository
 
     public function exist (int $title): array
     {
-        Database::request("SELECT * FROM tags WHERE tagTitle= ?;", [$title]);
+        return Database::request("SELECT * FROM tags WHERE tagTitle= ?;", [$title]);
     }
 
     public function getId (int $title): array
