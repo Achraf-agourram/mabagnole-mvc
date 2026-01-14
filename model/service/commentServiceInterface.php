@@ -1,6 +1,6 @@
 <?php
 
-interface commentServiceInterface
+interface CommentServiceInterface
 {
     public function addComment(string $commentText, int $idArticle, int $idClient): bool;
 

@@ -1,6 +1,6 @@
 <?php
 
-interface themeServiceInterface
+interface ThemeServiceInterface
 {
     public function addTheme(string $title): void;
 

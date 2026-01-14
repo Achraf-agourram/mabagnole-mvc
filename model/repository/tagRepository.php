@@ -1,6 +1,6 @@
 <?php
 
-class tagRepository
+class TagRepository
 {
     public function insert (string $tagTitle): void
     {

@@ -1,6 +1,6 @@
 <?php
 
-class commentRepository
+class CommentRepository
 {
     public function insert (string $text, int $idArticle, int $idClient): void
     {

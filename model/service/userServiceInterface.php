@@ -1,6 +1,6 @@
 <?php
 
-interface userServiceInterface
+interface TserServiceInterface
 {
     public function login (string $email, string $password): ?User;
 

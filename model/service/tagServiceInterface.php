@@ -1,6 +1,6 @@
 <?php
 
-interface tagServiceInterface
+interface TagServiceInterface
 {
     public function addTag(string $tagTitle): void;
 

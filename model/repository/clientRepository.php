@@ -1,6 +1,6 @@
 <?php
 
-class clientRepository
+class ClientRepository
 {
     public function insert (string $name, string $email, string $password): void
     {
