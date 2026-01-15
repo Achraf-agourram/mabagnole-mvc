@@ -23,7 +23,6 @@ class UserService implements UserServiceInterface
             return null;
         }
 
-        $_SESSION['loggedAccount'] = $user->userId;
 
         if ($user->role === 'client') return new Client($user->userId, $user->fullName, $user->email, $user->role, $user->password, $user->isActive);
 
