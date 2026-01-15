@@ -9,10 +9,19 @@ class ClientService implements ClientServiceInterface
         $this->clientRepository = $clientRepository;
     }
 
-    public function register(string $name, string $email, string $password): void
+    public function register(string $name, string $email, string $password): bool
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $this->clientRepository->insert($name, $email, $hashedPassword);
+        try
+        {
+            $this->clientRepository->insert($name, $email, $hashedPassword);
+            return true;
+        }
+        catch (Exception $er)
+        {
+            return false;
+        }
+        
     }
 }
