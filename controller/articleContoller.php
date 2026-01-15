@@ -68,7 +68,15 @@ class ArticleController
 
     function showArticles (): void
     {
-        $articles = $this->articleService->getAllArticles();
+        $filterOnTopic = $_GET['getArticlesOnTopic'];
+        $filterOnSearch = $_GET['search'];
+        $filterOnTag = $_GET['showArticlesByTag'];
+
+        if ($filterOnTopic) $articles = $this->articleService->getArticlesOnTheme($filterOnTopic);
+        else if ($filterOnSearch) $articles = $this->articleService->searchArticle($filterOnSearch);
+        else if ($filterOnTag) $articles = $this->articleService->getArticlesOnTag($filterOnTag);
+        else $articles = $this->articleService->getAllArticles();
+
         require_once "sections/allArticlesSection.php";
     }
 
