@@ -55,7 +55,16 @@ class ArticleController
         }else echo "unable to edit this article, please try again later";
     }
 
-    public function removeArticle ()
+    public function removeArticle (): void
+    {
+        $articleToRemove = $this->articleService->getArticleById($_GET['deleteArticle']);
+
+        if($this->articleService->removeArticle($articleToRemove, $connectedUser->id)) echo "article deleted successfully";
+
+        header("location: explore.php");
+        exit;
+
+    }
 }
 
 ?>
