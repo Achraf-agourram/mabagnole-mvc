@@ -50,7 +50,7 @@ class CommentService implements CommentServiceInterface
         }
     }
 
-    public function findComment($id): ?Comment
+    public function findComment(int $id): ?Comment
     {
         $result = $this->commentRepository->findById($id);
 
