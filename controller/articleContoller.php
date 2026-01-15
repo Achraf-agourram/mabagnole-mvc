@@ -37,6 +37,7 @@ class ArticleController
         $tags = $_POST['tags'];
         $content = $_POST['paragraph'];
         $theme = $_POST['theme'];
+        $articleToEdit = $this->articleService->getArticleById($_GET['edit']);
 
         if ($tags)
         {
@@ -45,8 +46,16 @@ class ArticleController
 
         }else $tags = null;
 
-        if ($this->articleService->editArticle($title, $image, $tags, $content, $theme, $connectedUser->id))
+        if ($this->articleService->editArticle($articleToEdit, $title, $image, $tags, $content, $theme, $connectedUser->id))
+        {
+            echo "edited successfully, wait until admin approuve it";
+            header("location: explore.php");
+            exit;
+
+        }else echo "unable to edit this article, please try again later";
     }
+
+    public function removeArticle ()
 }
 
 ?>
