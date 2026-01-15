@@ -2,9 +2,9 @@
 
 interface ArticleServiceInterface
 {
-    public function addArticle(Article $article, string $title, string $image, ?array $tags, string $paragraph, int $idTheme, int $idClient): bool;
+    public function addArticle(string $title, string $image, ?array $tags, string $paragraph, int $idTheme, int $idClient): bool;
 
-    public function editArticle(Article $article, string $title, ?array $tags, string $image, string $paragraph, int $connectedUserId): bool;
+    public function editArticle(Article $article, string $title, string $image, ?array $tags, string $paragraph, int $idTheme, int $connectedUserId): bool;
 
     public function approuveArticle(Article $article): bool;
 

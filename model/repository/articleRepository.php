@@ -2,14 +2,14 @@
 
 class ArticleRepository
 {
-    public function insert(string $title, string $image, ?array $tags, string $paragraph, int $idTheme, int $idClient): void
+    public function insert(string $title, string $image, string $paragraph, int $idTheme, int $idClient): void
     {
-        Database::request("INSERT INTO articles (articleTitle, articleImage, articleParagraph, approuve, idTheme, idClient) VALUES (?, ?, ?, ?, ?, ?);", [$title, $image, $paragraph, 0, $idTheme, $idClient]);
+        Database::request("INSERT INTO articles (articleTitle, articleImage, articleParagraph, approuve= 0, idTheme, idClient) VALUES (?, ?, ?, ?, ?, ?);", [$title, $image, $paragraph, $idTheme, $idClient]);
     }
 
-    public function update(int $articleId, string $title, string $image, string $paragraph): void
+    public function update(int $articleId, string $title, string $image, string $paragraph, int $idTheme): void
     {
-        Database::request("UPDATE articles SET articleTitle= ?, articleImage= ?, articleParagraph= ?, approuve= ? WHERE articleId= ?;", [$title, $image, $paragraph, 0, $articleId]);
+        Database::request("UPDATE articles SET articleTitle= ?, articleImage= ?, articleParagraph= ?, approuve= 0, idTheme= ? WHERE articleId= ?;", [$title, $image, $paragraph, $idTheme, $articleId]);
     }
 
     public function remove(int $articleId): void
@@ -55,6 +55,11 @@ class ArticleRepository
     public function linkArticleWithTag(int $articleId, int $tagId): void
     {
         Database::request("INSERT INTO article_tag (article_id, tag_id) VALUES (?, ?)", [$articleId, $tagId]);
+    }
+
+    public function removeLink (int $articleId): void
+    {
+        Database::request("DELETE FROM `article_tag` WHERE article_id= ?;", [$articleId]);
     }
 }
 

@@ -39,7 +39,7 @@ class ArticleService implements ArticleServiceInterface
         }
     }
 
-    public function editArticle(Article $article, string $title, string $image, string $paragraph, int $connectedUserId): bool
+    public function editArticle(Article $article, string $title, string $image, ?array $tags, string $paragraph, int $idTheme, int $connectedUserId): bool
     {
         try {
             if ($connectedUserId != $article->idClient) {
@@ -52,7 +52,17 @@ class ArticleService implements ArticleServiceInterface
                 $image = "unavailable.png";
             }
 
-            $this->articleRepository->update($article->articleId, $title, $image, $paragraph);
+            $this->articleRepository->update($article->articleId, $title, $image, $paragraph, $idTheme);
+
+            $this->articleRepository->removeLink($article->articleId);
+
+            if ($tags) {
+                foreach ($tags as $tag) {
+                    $tagId = $this->tagService->getTagId($tag);
+                    $this->articleRepository->linkArticleWithTag($articleId, $tagId);
+                }
+            }
+
             return true;
 
         } catch (Exception $e) {
