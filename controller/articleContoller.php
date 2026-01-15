@@ -65,6 +65,12 @@ class ArticleController
         exit;
 
     }
+
+    function showArticle (): void
+    {
+        $article = $this->articleService->getArticleById($_GET['showArticle']);
+        require_once "sections/viewArticleSection.php";
+    }
 }
 
 ?>
