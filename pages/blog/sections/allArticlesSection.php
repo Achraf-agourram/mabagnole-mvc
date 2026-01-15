@@ -63,20 +63,4 @@
           ?>
                 
     </form>
-
-    <!--div class="flex flex-col md:flex-row justify-between items-center mt-12 gap-6 border-t pt-8">
-      <div class="flex items-center gap-3">
-        <span class="text-sm text-gray-600">Show:</span>
-        <select class="border p-2 rounded text-sm outline-[#197fe6]">
-          <option>5 per page</option>
-          <option selected>10 per page</option>
-          <option>15 per page</option>
-        </select>
-      </div>
-      <div class="flex gap-2">
-        <button class="px-4 py-2 border rounded hover:bg-gray-100 disabled:opacity-50">Previous</button>
-        <button class="px-4 py-2 bg-[#197fe6] text-white rounded font-bold">1</button>
-        <button class="px-4 py-2 border rounded hover:bg-gray-100">Next</button>
-      </div>
-    </div-->
   </section>

@@ -66,6 +66,12 @@ class ArticleController
 
     }
 
+    function showArticles (): void
+    {
+        $articles = $this->articleService->getAllArticles();
+        require_once "sections/allArticlesSection.php";
+    }
+
     function showArticle (): void
     {
         $article = $this->articleService->getArticleById($_GET['showArticle']);
