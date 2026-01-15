@@ -14,11 +14,6 @@ class Client extends User
         $this->isActive = $isActive;
     }
 
-    public static function register (string $name, string $email, string $password): void
-    {
-        Database::request("INSERT INTO `users` (fullName, email, role, password) VALUES (?, ?, ?, ?)", [$name, $email, "client", $password]);
-    }
-
 }
 
 ?>
