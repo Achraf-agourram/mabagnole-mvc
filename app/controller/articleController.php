@@ -22,7 +22,7 @@ class ArticleController
         if ($tags)
         {
             $tags = explode(" ", str_replace("#", "", $tags));
-            foreach($tags as $tag) if (!$this->tagService->existTag($tag)) $this->tagService->addTag($tag);
+            foreach($tags as $tag) $this->tagService->addTag($tag);
 
         }else $tags = null;
 
@@ -68,16 +68,19 @@ class ArticleController
 
     function showArticles (): void
     {
-        $filterOnTopic = $_GET['getArticlesOnTopic'];
-        $filterOnSearch = $_GET['search'];
-        $filterOnTag = $_GET['showArticlesByTag'];
+        // $filterOnTopic = $_GET['getArticlesOnTopic'];
+        // $filterOnSearch = $_GET['search'];
+        // $filterOnTag = $_GET['showArticlesByTag'];
 
-        if ($filterOnTopic) $articles = $this->articleService->getArticlesOnTheme($filterOnTopic);
-        else if ($filterOnSearch) $articles = $this->articleService->searchArticle($filterOnSearch);
-        else if ($filterOnTag) $articles = $this->articleService->getArticlesOnTag($filterOnTag);
-        else $articles = $this->articleService->getAllArticles();
+        // if ($filterOnTopic) $articles = $this->articleService->getArticlesOnTheme($filterOnTopic);
+        // else if ($filterOnSearch) $articles = $this->articleService->searchArticle($filterOnSearch);
+        // else if ($filterOnTag) $articles = $this->articleService->getArticlesOnTag($filterOnTag);
+        // else $articles = $this->articleService->getAllArticles();
 
-        require_once "sections/allArticlesSection.php";
+        $articles = $this->articleService->getAllArticles();
+        
+        require_once __DIR__ . "/../view/blog/sections/allArticlesSection.php";
+        return;
     }
 
     function showArticle (): void

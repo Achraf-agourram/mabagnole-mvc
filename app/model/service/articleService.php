@@ -104,13 +104,13 @@ class ArticleService implements ArticleServiceInterface
 
     public function getAllArticles(): array
     {
-        $articles = $this->articleRepository->findAll();
+        $articles = $this->articleRepository->get();
         return $this->tagService->linkTagsWithArticles($articles);
     }
 
     public function getArticlesOnTheme(int $idTheme): array
     {
-        $articles = $this->articleRepository->findByTheme($idTheme);
+        $articles = $this->articleRepository->getOnTheme($idTheme);
         return $this->tagService->linkTagsWithArticles($articles);
     }
 

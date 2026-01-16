@@ -2,11 +2,20 @@
 
 class User
 {
-    protected $id;
+    protected $userId;
     protected $fullName;
     protected $email;
     protected $role;
     protected $password;
+
+    public function __construct(int $id, string $fullName, string $email, string $role, string $password)
+    {
+        $this->userId = $id;
+        $this->fullName = $fullName;
+        $this->email = $email;
+        $this->role = $role;
+        $this->password = $password;
+    }
 
     public function logout(): void
     {

@@ -10,15 +10,15 @@ interface ArticleServiceInterface
 
     public function removeArticle(Article $article, int $connectedUserId): bool;
 
-    public function getArticleById(int $id);
+    public function getArticleById(int $id): object;
 
-    public function getAllArticles();
+    public function getAllArticles(): array;
 
-    public function getArticlesOnTheme(int $idTheme);
+    public function getArticlesOnTheme(int $idTheme): array;
 
-    public function getArticlesOnTag(int $idTag);
+    public function getArticlesOnTag(int $idTag): array;
 
-    public function searchArticle(string $title);
+    public function searchArticle(string $title): array;
 }
 
 ?>

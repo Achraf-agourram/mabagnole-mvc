@@ -6,11 +6,7 @@ class Client extends User
     
     public function __construct(int $id, string $fullName, string $email, string $role, string $password, int $isActive)
     {
-        $this->id = $id;
-        $this->fullName = $fullName;
-        $this->email = $email;
-        $this->role = $role;
-        $this->password = $password;
+        parent::__construct($id, $fullName, $email, $role, $password);
         $this->isActive = $isActive;
     }
 

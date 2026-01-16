@@ -2,7 +2,7 @@
 
 interface ClientServiceInterface
 {
-    public function register (string $name, string $email, string $password): void;
+    public function register (string $name, string $email, string $password): bool;
 }
 
 ?>

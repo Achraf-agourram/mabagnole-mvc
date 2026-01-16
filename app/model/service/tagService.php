@@ -11,7 +11,7 @@ class TagService implements TagServiceInterface
 
     public function addTag(string $tagTitle): void
     {
-        if ($this->existTag($tagTitle)) $this->tagRepository->insert($tagTitle);
+        if (!$this->existTag($tagTitle)) $this->tagRepository->insert($tagTitle);
     }
 
     public function editTag(Tag $tag, $tagTitle): void
@@ -26,17 +26,19 @@ class TagService implements TagServiceInterface
 
     public function getTags(): array
     {
-        return $this->tagRepository->findAll();
+        return $this->tagRepository->get();
     }
 
     public function getTagsByArticle(int $articleId): array
     {
-        return $this->tagRepository->findByArticle($articleId);
+        return $this->tagRepository->getByArticle($articleId);
     }
 
     public function existTag(string $tag): bool
     {
-        return $this->tagRepository->exist($tag);
+        $tag = $this->tagRepository->exist($tag);
+        if ($tag) return true;
+        else return false;
     }
 
     public function getTagId(string $tag): int

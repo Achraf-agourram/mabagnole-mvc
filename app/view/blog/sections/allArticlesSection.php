@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 relative text-gray-800">
+  <nav class="bg-[#197fe6] p-4 text-white flex justify-between items-center shadow-lg">
+    <h1 class="text-2xl font-bold italic">MyBlog</h1>
+    <div class="space-x-6">
+      <a href="#">Home</a>
+      <button id="newArticleBtn" class="bg-white text-[#197fe6] px-4 py-2 rounded-full font-semibold">+ Publish</button>
+    </div>
+  </nav>
+
   <header class="bg-white py-12 border-b border-gray-200">
     <div class="container mx-auto px-4 text-center">
       <h2 class="text-3xl font-bold mb-6">What would you like to learn today?</h2>
@@ -17,50 +36,108 @@
       
     </form>
     
-    <form class="grid md:grid-cols-3 gap-8" method="GET">
+    <div class="grid md:grid-cols-3 gap-8">
       <?php
-        // if(isset($_GET['getArticlesOnTopic'])) $articles = Article::getArticlesOnTheme($_GET['getArticlesOnTopic']);
-        // else if(isset($_GET['search'])) $articles = Article::searchArticle("%{$_GET['titleToSearch']}%");
-        // else if(isset($_GET['showArticlesByTag'])) $articles = Article::getArticlesOnTag($_GET['showArticlesByTag']);
-        // else $articles = Article::getAllArticles();
 
-        // foreach($articles as $article) {
-        //   echo "
-        //     <div class='bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition'>
-        //       <div class='h-48 bg-gray-200 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest'><img src='images/{$article->articleImage}'></div> 
-        //       <div class='p-5'>
-        //         <div class='flex justify-between items-start mb-2'>
-        //           <span class='text-xs font-bold text-[#197fe6] uppercase tracking-wide'>" .Theme::getThemeById($article->idTheme)->themeTitle. "</span>
-        //           <!--button class='text-gray-300 hover:text-red-500 transition text-xl'>❤️</button-->
-        //         </div>
-        //         <h3 class='text-xl font-bold mb-2'>{$article->articleTitle}</h3>
-        //         <p class='text-gray-600 text-sm mb-4'>" .substr($article->articleParagraph, 0, 50). '...' . "</p>
-        //         <div class='flex gap-2'>
-        //   ";
+        foreach($articles as $article) {
+          echo "
+            <div class='bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition'>
+              <div class='h-48 bg-gray-200 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest'><img src='images/{$article->articleImage}'></div> 
+              <div class='p-5'>
+                <div class='flex justify-between items-start mb-2'>
+                  <span class='text-xs font-bold text-[#197fe6] uppercase tracking-wide'>" /*.Theme::getThemeById($article->idTheme)->themeTitle*/. "</span>
+                  <!--button class='text-gray-300 hover:text-red-500 transition text-xl'>❤️</button-->
+                </div>
+                <h3 class='text-xl font-bold mb-2'>{$article->articleTitle}</h3>
+                <p class='text-gray-600 text-sm mb-4'>" .substr($article->articleParagraph, 0, 50). '...' . "</p>
+                <div class='flex gap-2'>
+          ";
 
-        //   foreach($article->tags as $tag) echo "
-        //           <button name='showArticlesByTag' value='$tag->tagId' class='text-[10px] bg-blue-50 text-[#197fe6] px-2 py-1 rounded font-bold border border-blue-100'>#{$tag->tagTitle}</button>
-        //     ";
-        //   echo "
-        //         </div>
-        //         <div class='mt-2 flex justify-between'>
-        //           <button name='showArticle' value='{$article->articleId}' class='px-4 py-2 bg-[#197fe6] text-white rounded-full'>learn more</button>
-        //         ";
+          foreach($article->tags as $tag) echo "
+                  <button name='showArticlesByTag' value='$tag->tagId' class='text-[10px] bg-blue-50 text-[#197fe6] px-2 py-1 rounded font-bold border border-blue-100'>#{$tag->tagTitle}</button>
+            ";
+          echo "
+                </div>
+                <div class='mt-2 flex justify-between'>
+                  <button name='showArticle' value='{$article->articleId}' class='px-4 py-2 bg-[#197fe6] text-white rounded-full'>learn more</button>
+                ";
 
-        //   if($article->idClient === $connectedUser->id) echo "
-        //     <div class='flex'>
-        //       <button name='edit' value='{$article->articleId}' class='text-[#197fe6] pl-4'>Edit</button>
-        //       <button name='deleteArticle' value='{$article->articleId}' class='text-red-500 pl-3'>delete</button>
-        //     </div>
-        //   ";
+          if($article->idClient === $connectedUser->id) echo "
+            <div class='flex'>
+              <button name='edit' value='{$article->articleId}' class='text-[#197fe6] pl-4'>Edit</button>
+              <button name='deleteArticle' value='{$article->articleId}' class='text-red-500 pl-3'>delete</button>
+            </div>
+          ";
 
-        //   echo "
-        //         </div>
-        //       </div>
-        //     </div>
-        //   ";
-        // }
-          ?>
+          echo "
+                </div>
+              </div>
+            </div>
+          ";
+        }
+      ?>
                 
-    </form>
+    </div>
   </section>
+
+  <div id="article-modal" class="absolute hidden flex inset-0 bg-gray-600 bg-opacity-75 items-center justify-center z-50">
+    <div class="max-w-2xl w-full bg-white p-10 rounded-2xl shadow-2xl border-t-8 border-[#197fe6] relative">
+      <button class="absolute top-4 right-6 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+
+      <div class="mb-4">
+        <h2 class="text-3xl font-extrabold text-gray-900">Create New Article</h2>
+        <p class="text-gray-500 mt-2">Share your thoughts and media with the community.</p>
+      </div>
+      
+      <form class="space-y-4" enctype="multipart/form-data" method="post">
+        <div>
+          <label class="block font-bold text-gray-700 mb-2">Article Title</label>
+          <input name="title" type="text" class="w-full p-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#197fe6] focus:border-transparent outline-none transition" placeholder="e.g., My Trip to Tokyo">
+        </div>
+          
+        <div>
+          <label class="block font-bold text-gray-700 mb-2">Tags</label>
+          <input name="tags" type="text" class="w-full p-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#197fe6] focus:border-transparent outline-none transition" placeholder="Separate with commas (e.g., travel, summer, food)">
+        </div>
+        <div>
+          <label class="block font-bold text-gray-700 mb-2">Topics</label>
+          <select name="theme" class="w-full p-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#197fe6] focus:border-transparent outline-none transition">
+          <?php
+            //   fix
+          ?>  
+          
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-700 mb-2">Body Content</label>
+          <textarea name="paragraph" class="w-full p-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#197fe6] focus:border-transparent outline-none transition" rows="6" placeholder="Tell your story..."></textarea>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-700 mb-2">Media (Optional)</label>
+          <div class="border-2 border-dashed border-gray-300 p-8 text-center rounded-xl hover:border-[#197fe6] hover:bg-blue-50 cursor-pointer transition flex flex-col items-center group">
+            <span class="text-3xl mb-2 group-hover:scale-110 transition-transform">📁</span>
+            <p class="text-gray-500">Click to upload <strong>Images</strong></p>
+            <input type="file" name="image" accept="image/*" multiple>
+          </div>
+        </div>
+
+        <button name="addArticle" class="w-full bg-[#197fe6] text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-700 active:transform active:scale-95 transition-all">
+            Publish Now
+          </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('newArticleBtn').addEventListener("click", () => document.getElementById('article-modal').classList.remove('hidden'));
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('article-modal').classList.add('hidden')
+            }
+        })
+  </script>
+</body>
+
+</html>

@@ -58,7 +58,12 @@ class Router
         $service = str_replace('Controller', 'Service', $controller);
         $repo = str_replace('Controller', 'Repository', $controller);
         
-        $controller = new $controller(new $service(new $repo()));
+        if ($controller === 'ArticleController') {
+            $tagService = 'TagService';
+            $tagRepo = 'TagRepository';
+            $controller = new $controller(new $service(new $repo(), new $tagService(new $tagRepo())), new $tagService(new $tagRepo()));
+        }
+        else $controller = new $controller(new $service(new $repo()));
 
         call_user_func_array([$controller, $method], $params);
     }
