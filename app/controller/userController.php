@@ -11,19 +11,20 @@ class UserController
 
     public function login (): void
     {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        echo "login page";
+        // $email = $_POST['email'];
+        // $password = $_POST['password'];
 
-        $connectedUser = $this->userService->login($email, $password);
-        if($connectedUser)
-        {
-            $_SESSION['loggedAccount'] = $connectedUser->userId;
-            echo "logged successfully";
-            if ($connectedUser->role === 'admin') header('Location: admin/categories');
-            else header('Location: blog/explore');
-            exit;
-        }
-        else echo "please enter valid details";
+        // $connectedUser = $this->userService->login($email, $password);
+        // if($connectedUser)
+        // {
+        //     $_SESSION['loggedAccount'] = $connectedUser->userId;
+        //     echo "logged successfully";
+        //     if ($connectedUser->role === 'admin') header('Location: admin/categories');
+        //     else header('Location: blog/explore');
+        //     exit;
+        // }
+        // else echo "please enter valid details";
     }
 
     public function checkAccess (?string $roleToCheck, string $redirectPage): void

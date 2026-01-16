@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/mabagnole-mvc/public/
+RewriteRule ^(.*)$ /mabagnole-mvc/public/index.php [QSA,L]

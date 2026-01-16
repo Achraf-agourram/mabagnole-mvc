@@ -1,19 +1,17 @@
 <?php
 spl_autoload_register(function ($class) {
-    $path = __DIR__ . '/model/' . $class . '.php';
 
-    if (file_exists($path)) {
-        require_once $path;
-    }
+    if (file_exists($path = __DIR__ . '/../app/model/entity/' . $class . '.php')) require_once $path;
+
+    else if (file_exists($path = __DIR__ . '/../app/model/repository/' . $class . '.php')) require_once $path;
+
+    else if (file_exists($path = __DIR__ . '/../app/model/service/' . $class . '.php')) require_once $path;
+
+    else if (file_exists($path = __DIR__ . '/../app/controller/' . $class . '.php')) require_once $path;
+
+    else if (file_exists($path = __DIR__ . '/../app/core/' . $class . '.php')) require_once $path;
+    
 });
 
 session_start();
-
-function checkAccess(){
-    if(isset($_SESSION['loggedAccount'])){
-        $u = User::findById($_SESSION['loggedAccount']);
-        if($u->role === 'admin') return $u;
-    }
-    return false;
-}
 ?>

@@ -16,33 +16,49 @@ class Router
 
     private function addRoute (string $method, string $path, string $action): void
     {
-        $this->routes[$method][] = [
-            "path" => $path,
-            "action" => $action
-        ];
+        $this->routes[$method][$path] = $action;
     }
 
-    public function excute (): void
-    {
-        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $method = $_SERVER['REQUEST_METHOD'];
+    public function excute(): void
+{
+    $method = strtoupper($_SERVER['REQUEST_METHOD']);
 
-        foreach ($this->routes[$method] ?? [] as $route) {
-            $pattern = preg_replace('#\{[^/]+\}#', '([^/]+)', $route['path']);
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $uri = str_replace('/mabagnole-mvc', '', $uri);
+    $uri = rtrim($uri, '/');
 
-            if (preg_match($pattern, $url, $matches)) {
-                array_shift($matches);
-                $this->callController($route['action'], $matches);
-                return;
-            }
+    if ($uri === '') {
+        $uri = '/';
+    }
+
+    if (!isset($this->routes[$method])) {
+        echo 'No routes for this method';
+        return;
+    }
+
+    foreach ($this->routes[$method] as $path => $action) {
+
+        $pattern = preg_replace('#\{[^/]+\}#', '([^/]+)', $path);
+        $pattern = '#^' . $pattern . '$#';
+
+        if (preg_match($pattern, $uri, $matches)) {
+            array_shift($matches);
+            $this->callController($action, $matches);
+            return;
         }
     }
+
+    echo '404 Not Found';
+}
+
 
     private function callController (string $action, array $params): void
     {
         [$controller, $method] = explode("@", $action);
-        $controller = "App\\Contollers\\$controller";
-        $controller = new $controller();
+        $service = str_replace('Controller', 'Service', $controller);
+        $repo = str_replace('Controller', 'Repository', $controller);
+        
+        $controller = new $controller(new $service(new $repo()));
 
         call_user_func_array([$controller, $method], $params);
     }
