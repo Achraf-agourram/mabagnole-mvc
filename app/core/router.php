@@ -4,6 +4,16 @@ class Router
 {
     private array $routes = [];
 
+    public function get(string $path, string $action): void
+    {
+        $this->addRoute('GET', $path, $action);
+    }
+
+    public function post(string $path, string $action): void
+    {
+        $this->addRoute('POST', $path, $action);
+    }
+
     private function addRoute (string $method, string $path, string $action): void
     {
         $this->routes[$method][] = [
@@ -20,7 +30,7 @@ class Router
         foreach ($this->routes[$method] ?? [] as $route) {
             $pattern = preg_replace('#\{[^/]+\}#', '([^/]+)', $route['path']);
 
-            if (preg_match($pattern, $uri, $matches)) {
+            if (preg_match($pattern, $url, $matches)) {
                 array_shift($matches);
                 $this->callController($route['action'], $matches);
                 return;
@@ -28,9 +38,13 @@ class Router
         }
     }
 
-    private function callContoller (string $action, array $params): void
+    private function callController (string $action, array $params): void
     {
-        
+        [$controller, $method] = explode("@", $action);
+        $controller = "App\\Contollers\\$controller";
+        $controller = new $controller();
+
+        call_user_func_array([$controller, $method], $params);
     }
 }
 
