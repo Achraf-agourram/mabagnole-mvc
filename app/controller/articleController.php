@@ -4,11 +4,13 @@ class ArticleController
 {
     private ArticleServiceInterface $articleService;
     private TagServiceInterface $tagService;
+    private UserController $userController;
 
-    public function __construct(ArticleServiceInterface $articleService, TagServiceInterface $tagService)
+    public function __construct(ArticleServiceInterface $articleService, TagServiceInterface $tagService, UserController $userController)
     {
         $this->articleService = $articleService;
         $this->tagService = $tagService;
+        $this->userController = $userController;
     }
 
     public function addArticle (): void
@@ -68,15 +70,18 @@ class ArticleController
 
     function showArticles (): void
     {
-        // $filterOnTopic = $_GET['getArticlesOnTopic'];
-        // $filterOnSearch = $_GET['search'];
-        // $filterOnTag = $_GET['showArticlesByTag'];
+        /*$filterOnTopic = $_GET['getArticlesOnTopic'];
+        $filterOnSearch = $_GET['search'];
+        $filterOnTag = $_GET['showArticlesByTag'];
 
-        // if ($filterOnTopic) $articles = $this->articleService->getArticlesOnTheme($filterOnTopic);
-        // else if ($filterOnSearch) $articles = $this->articleService->searchArticle($filterOnSearch);
-        // else if ($filterOnTag) $articles = $this->articleService->getArticlesOnTag($filterOnTag);
-        // else $articles = $this->articleService->getAllArticles();
+        if ($filterOnTopic) $articles = $this->articleService->getArticlesOnTheme($filterOnTopic);
+        else if ($filterOnSearch) $articles = $this->articleService->searchArticle($filterOnSearch);
+        else if ($filterOnTag) $articles = $this->articleService->getArticlesOnTag($filterOnTag);
+        else $articles = $this->articleService->getAllArticles()*/;
 
+        $this->userController->checkAccess(null);
+
+        $connectedUser = $this->userController->connect();
         $articles = $this->articleService->getAllArticles();
         
         require_once __DIR__ . "/../view/blog/sections/allArticlesSection.php";

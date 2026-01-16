@@ -40,13 +40,13 @@
       <?php
 
         foreach($articles as $article) {
+          
           echo "
             <div class='bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition'>
-              <div class='h-48 bg-gray-200 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest'><img src='images/{$article->articleImage}'></div> 
+              <div class='h-48 bg-gray-200 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest'><img src='/images/{$article->articleImage}'></div> 
               <div class='p-5'>
                 <div class='flex justify-between items-start mb-2'>
-                  <span class='text-xs font-bold text-[#197fe6] uppercase tracking-wide'>" /*.Theme::getThemeById($article->idTheme)->themeTitle*/. "</span>
-                  <!--button class='text-gray-300 hover:text-red-500 transition text-xl'>❤️</button-->
+                  <span class='text-xs font-bold text-[#197fe6] uppercase tracking-wide'></span>
                 </div>
                 <h3 class='text-xl font-bold mb-2'>{$article->articleTitle}</h3>
                 <p class='text-gray-600 text-sm mb-4'>" .substr($article->articleParagraph, 0, 50). '...' . "</p>
@@ -62,7 +62,7 @@
                   <button name='showArticle' value='{$article->articleId}' class='px-4 py-2 bg-[#197fe6] text-white rounded-full'>learn more</button>
                 ";
 
-          if($article->idClient === $connectedUser->id) echo "
+          if($article->idClient === $connectedUser->userId) echo "
             <div class='flex'>
               <button name='edit' value='{$article->articleId}' class='text-[#197fe6] pl-4'>Edit</button>
               <button name='deleteArticle' value='{$article->articleId}' class='text-red-500 pl-3'>delete</button>

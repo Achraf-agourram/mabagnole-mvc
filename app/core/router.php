@@ -59,9 +59,7 @@ class Router
         $repo = str_replace('Controller', 'Repository', $controller);
         
         if ($controller === 'ArticleController') {
-            $tagService = 'TagService';
-            $tagRepo = 'TagRepository';
-            $controller = new $controller(new $service(new $repo(), new $tagService(new $tagRepo())), new $tagService(new $tagRepo()));
+            $controller = new $controller(new $service(new $repo(), new TagService(new TagRepository())), new TagService(new TagRepository()), new UserController(new UserService(new UserRepository())));
         }
         else $controller = new $controller(new $service(new $repo()));
 

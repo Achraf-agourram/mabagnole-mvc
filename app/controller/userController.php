@@ -35,24 +35,29 @@ class UserController
         exit;
     }
 
-    public function checkAccess (?string $roleToCheck, string $redirectPage): void
+    public function checkAccess (?string $roleToCheck): void
     {
         if (!isset($_SESSION['loggedAccount']))
         {
-            header("location: /login");
+            header("location: login");
             exit;
         }
 
-        if (!$roleToCheck) header("location: /{$redirectPage}");
+        if (!$roleToCheck) return;
         else
         {
-            $connectedUser = $this->userService->findById($_SESSION['loggedAccount']);
+            $connectedUser = $this->connect();
 
-            if ($connectedUser->role === $roleToCheck) header("location: /{$redirectPage}");
-            else header("location: /login");
+            if ($connectedUser->role === $roleToCheck) return;
+            else header("location: login");
         }
 
         exit;
+    }
+
+    public function connect (): User
+    {
+        return $this->userService->findById($_SESSION['loggedAccount']);
     }
 }
 
