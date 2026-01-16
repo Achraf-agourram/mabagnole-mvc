@@ -1,20 +1,3 @@
-<?php 
-
-if(isset($_POST['editArticle'])) {
-    if($_POST['tags']) {
-        $tags = explode(" ", str_replace("#", "", $_POST['tags']));
-        foreach($tags as $tag) if(!Tag::existTag($tag)) Tag::addTag($tag);
-    }
-    else $tags = null;
-
-    if($articleToEdit->editArticle($_POST['title'], $tags, $_FILES['image']['name'], $_POST['paragraph'])) {
-        header("location: explore.php");
-        exit;
-    }else echo "something went wrong";
-    
-}
-?>
-
 <div id="article-modal" class="flex items-center justify-center">
     <div class="max-w-2xl w-full bg-white p-10 rounded-2xl shadow-2xl relative">
       <a href="explore.php" class="absolute top-4 right-6 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</a>
@@ -37,9 +20,9 @@ if(isset($_POST['editArticle'])) {
           <label class="block font-bold text-gray-700 mb-2">Topics</label>
           <select name="theme" value="<?= $articleToEdit->articleTheme ?>" class="w-full p-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#197fe6] focus:border-transparent outline-none transition">
           <?php
-            foreach(Theme::getThemes() as $theme) {
-              echo "<option value='{$theme->themeId}'>{$theme->themeTitle}</option>";
-            }
+            // foreach(Theme::getThemes() as $theme) {
+            //   echo "<option value='{$theme->themeId}'>{$theme->themeTitle}</option>";
+            // }
           ?>  
           
           </select>

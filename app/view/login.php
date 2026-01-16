@@ -1,18 +1,3 @@
-<?php
-require_once __DIR__ . '/../autoload.php';
-
-if(isset($_POST['login'])){
-    $connectedUser = User::login($_POST['email'], $_POST['password']);
-    if($connectedUser){
-        echo "logged successfully";
-        if($connectedUser->role === 'admin') header('Location: admin/categories.php');
-        else header('Location: blog/explore.php');
-        exit;
-    }
-    else{echo "please enter valid details";}
-}
-?>
-
 <!DOCTYPE html>
 
 <html class="light" lang="en">

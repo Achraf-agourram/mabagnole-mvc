@@ -1,24 +1,3 @@
-<?php
-require_once __DIR__ . '/../../autoload.php';
-
-if(!isset($_SESSION['loggedAccount'])) {header("location: ../login.php");exit;}
-
-$connectedUser = User::findById($_SESSION['loggedAccount']);
-
-if(isset($_POST['addArticle'])) {
-  if($_POST['tags']) {
-    $tags = explode(" ", str_replace("#", "", $_POST['tags']));
-    foreach($tags as $tag) if(!Tag::existTag($tag)) Tag::addTag($tag);
-  }
-  else $tags = null;
-
-  if(Article::addArticle($_POST['title'], $_FILES['image']['name'], $tags, $_POST['paragraph'], $_POST['theme'], $connectedUser->id)) echo "Article added successfully, wait until our support approuve it";
-  else echo "Adding article failed, please try again";
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,28 +16,6 @@ if(isset($_POST['addArticle'])) {
       <button id="newArticleBtn" class="bg-white text-[#197fe6] px-4 py-2 rounded-full font-semibold">+ Publish</button>
     </div>
   </nav>
-
-  <?php
-    if(isset($_GET['showArticle'])) return require_once "sections/viewArticleSection.php";
-    if(isset($_POST['addComment'])) return require_once "sections/viewArticleSection.php";
-
-    if(isset($_GET['edit'])) {
-      $articleToEdit = Article::getArticleById($_GET['edit']);
-      if($connectedUser->id === $articleToEdit->idClient) return require_once "sections/editingArticleSection.php";
-    }
-
-    if(isset($_GET['deleteArticle'])) {
-      $articleToDelete = Article::getArticleById($_GET['deleteArticle']);
-      $articleToDelete->removeArticle();
-      header("location: explore.php");
-      exit;
-    }
-    
-    require_once "sections/allArticlesSection.php";
-  ?>
-
-
-  
 
   <div id="article-modal" class="absolute hidden flex inset-0 bg-gray-600 bg-opacity-75 items-center justify-center z-50">
     <div class="max-w-2xl w-full bg-white p-10 rounded-2xl shadow-2xl border-t-8 border-[#197fe6] relative">
@@ -83,9 +40,7 @@ if(isset($_POST['addArticle'])) {
           <label class="block font-bold text-gray-700 mb-2">Topics</label>
           <select name="theme" class="w-full p-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#197fe6] focus:border-transparent outline-none transition">
           <?php
-            foreach(Theme::getThemes() as $theme) {
-              echo "<option value='{$theme->themeId}'>{$theme->themeTitle}</option>";
-            }
+            //   fix
           ?>  
           
           </select>

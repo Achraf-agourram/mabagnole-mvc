@@ -1,15 +1,3 @@
-<?php
-require_once __DIR__ . '/../autoload.php';
-
-if(isset($_POST['register'])){
-    try {
-        Client::register($_POST['fname'], $_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT));
-        echo "registred successfully";
-    }
-    catch (Exception $e) {echo "failed register, try again";}
-}
-?>
-
 <!DOCTYPE html>
 
 <html class="light" lang="en">

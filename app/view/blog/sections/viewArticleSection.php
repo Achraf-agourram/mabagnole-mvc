@@ -1,32 +1,27 @@
-<?php
-if(isset($_POST['addComment'])) if(!Comment::addComment($_POST['comment'], $_POST['addComment'], $connectedUser->id)) echo "comment failed to add, please try again";
-if(isset($_POST['editComment'])) if(Comment::findComment($_POST['editComment'])->editComment($_POST['editedComment'])) echo "Comment edited";
-if(isset($_POST['deleteComment'])) if(Comment::findComment($_POST['deleteComment'])->removeComment()) echo "Comment deleted";
-?>
 
 <main class='container mx-auto px-4 py-10 max-w-4xl'>
     <?php
-        $article = Article::getArticleById($_GET['showArticle']);
-        echo "
-            <article class='bg-white p-8 rounded-2xl shadow-sm border border-gray-100'>
-                <header class='mb-8'>
-                    <div class='flex items-center gap-2 mb-4'>
-                    <a href='../blog/explore.php' class='text-[#197fe6] font-bold'>← Back to Feed</a>
-                    </div>
-                    <h1 class='text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>{$article->articleTitle}</h1>
-                    <div class='flex items-center gap-4 text-gray-500 text-sm'>
-                    <span class='font-medium text-gray-700'>". User::findById($article->idClient)->fullName. "</span> • <button class='text-[#197fe6] hover:underline font-bold'>Add to Favorites ❤️</button>
-                    </div>
-                </header>
+        // $article = Article::getArticleById($_GET['showArticle']);
+        // echo "
+        //     <article class='bg-white p-8 rounded-2xl shadow-sm border border-gray-100'>
+        //         <header class='mb-8'>
+        //             <div class='flex items-center gap-2 mb-4'>
+        //             <a href='../blog/explore.php' class='text-[#197fe6] font-bold'>← Back to Feed</a>
+        //             </div>
+        //             <h1 class='text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>{$article->articleTitle}</h1>
+        //             <div class='flex items-center gap-4 text-gray-500 text-sm'>
+        //             <span class='font-medium text-gray-700'>". User::findById($article->idClient)->fullName. "</span> • <button class='text-[#197fe6] hover:underline font-bold'>Add to Favorites ❤️</button>
+        //             </div>
+        //         </header>
 
-                <div class='prose max-w-none text-lg text-gray-700 leading-relaxed mb-8'>
-                    <p>{$article->articleParagraph}</p>
+        //         <div class='prose max-w-none text-lg text-gray-700 leading-relaxed mb-8'>
+        //             <p>{$article->articleParagraph}</p>
                     
-                    <div class='my-8 flex flex-col items-center justify-center border-2 border-[#197fe6] rounded-xl'>
-                        <img class='w-full' src='images/{$article->articleImage}'>
-                    </div>
-                </div>
-            ";
+        //             <div class='my-8 flex flex-col items-center justify-center border-2 border-[#197fe6] rounded-xl'>
+        //                 <img class='w-full' src='images/{$article->articleImage}'>
+        //             </div>
+        //         </div>
+        //     ";
                 
     ?>
     <section class='relative border-t pt-10 mt-12'>
@@ -34,28 +29,28 @@ if(isset($_POST['deleteComment'])) if(Comment::findComment($_POST['deleteComment
         
         <div class='space-y-6 mb-10'>
             <?php
-                $comments = Comment::getComments($article->articleId);
-                foreach($comments as $comment) {
-                    echo "
-                        <div class='bg-gray-50 p-5 rounded-xl border border-gray-100'>
-                            <div class='flex justify-between mb-3'>
-                                <span class='font-bold text-gray-900'>". User::findById($comment->idClient)->fullName ."</span>
-                    ";
-                    if($comment->idClient === $connectedUser->id) echo "
-                        <div class='flex gap-4 text-xs font-bold uppercase tracking-tighter'>
-                            <button name='editComment' class='text-[#197fe6] hover:underline' onclick='openCommentEditModal({$comment->commentId},". json_encode($comment->commentText) .")'>Edit</button>
-                            <form method='post' class='pt-1'>
-                                <button name='deleteComment' value='{$comment->commentId}' class='text-red-500 hover:underline'>Delete</button>
-                            </form>
-                        </div>
-                    ";
-                    echo "
-                            </div>
-                        <p class='text-gray-600'>{$comment->commentText}</p>
-                    </div>
-                </div>
-                    ";
-                }
+                // $comments = Comment::getComments($article->articleId);
+                // foreach($comments as $comment) {
+                //     echo "
+                //         <div class='bg-gray-50 p-5 rounded-xl border border-gray-100'>
+                //             <div class='flex justify-between mb-3'>
+                //                 <span class='font-bold text-gray-900'>". User::findById($comment->idClient)->fullName ."</span>
+                //     ";
+                //     if($comment->idClient === $connectedUser->id) echo "
+                //         <div class='flex gap-4 text-xs font-bold uppercase tracking-tighter'>
+                //             <button name='editComment' class='text-[#197fe6] hover:underline' onclick='openCommentEditModal({$comment->commentId},". json_encode($comment->commentText) .")'>Edit</button>
+                //             <form method='post' class='pt-1'>
+                //                 <button name='deleteComment' value='{$comment->commentId}' class='text-red-500 hover:underline'>Delete</button>
+                //             </form>
+                //         </div>
+                //     ";
+                //     echo "
+                //             </div>
+                //         <p class='text-gray-600'>{$comment->commentText}</p>
+                //     </div>
+                // </div>
+                //     ";
+                // }
             ?>
             
                 
